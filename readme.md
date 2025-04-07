@@ -4,6 +4,7 @@ Sometimes we'd like to:
 * set different API key
 * set different browsers
 * set different test titles
+
 and so on...
 
 This simple tutorial will guide you through on how to customize different settings in different levels of granularity.
