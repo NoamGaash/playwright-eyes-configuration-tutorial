@@ -12,8 +12,30 @@ export default defineConfig<EyesFixture>({
   },
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      name: 'full page tests',
+      testMatch: /.*\.fully\.spec\.ts/,
+      use: {
+        ...devices['Desktop Chrome'],
+        eyesConfig: {
+          fully: false,
+        }
+      },
     },
+    {
+      name: 'viewport tests',
+      testMatch: /.*\.viewport\.spec\.ts/,
+      use: {
+        ...devices['Desktop Chrome'],
+        eyesConfig: {
+          fully: false,
+        }
+      },
+    },
+    {
+      name: 'all other tests',
+      // regex that matches all other tests (tests that doesn't end with .fully.spec.ts or .viewport.spec.ts)
+      testMatch: /^(?!.*\.fully\.spec\.ts|.*\.viewport\.spec\.ts).*\.spec\.ts$/,
+      use: {...devices['Desktop Chrome']} ,
+    }
   ],
 });
