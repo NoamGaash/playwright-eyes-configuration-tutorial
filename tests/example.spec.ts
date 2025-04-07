@@ -1,4 +1,4 @@
-import { expect, test } from '@applitools/eyes-playwright/fixture';
+import { expect, test } from './utils/teamFixtures';
 
 test('basic check', async ({ page, eyes }) => {
   await page.setContent('<h1>Hello World</h1>');
