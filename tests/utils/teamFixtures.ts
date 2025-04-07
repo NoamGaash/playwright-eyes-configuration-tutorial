@@ -1,13 +1,20 @@
-import { test as base, expect } from '@applitools/eyes-playwright/fixture';
+import { test as base, expect, EyesConfig } from '@applitools/eyes-playwright/fixture';
+import type { TestInfo } from '@playwright/test';
 
 const test = base.extend({
-    eyesConfig: {
-        apiKey: process.env.TEAM_API_KEY || process.env.APPLITOOLS_API_KEY,
+    eyesConfig: ({baseURL}, use, testInfo: TestInfo) => use({
+        fully: testInfo.tags.includes('@fully'),
         browsersInfo: [
-            // our team wants to test only on chrome
             {name: 'chrome', width: 800, height: 600},
+            ...(testInfo.tags.includes('@mobile') ? [
+                {name: 'chrome', width: 375, height: 667},
+                {name: 'chrome', width: 768, height: 1024},
+            ] as const : []),
+        ],
+        properties: [
+            {name: 'baseUrl', value: baseURL}
         ]
-    },
+    } satisfies EyesConfig),
 })
 
 export { test, expect };
